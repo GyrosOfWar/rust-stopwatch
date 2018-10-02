@@ -73,22 +73,13 @@ impl Stopwatch {
 
 	/// Returns the elapsed time since the start of the stopwatch.
 	pub fn elapsed(&self) -> Duration {
-		match self.start_time {
-			// stopwatch is running
-			Some(t1) => {
-				t1.elapsed() + self.elapsed
-			}
-			// stopwatch is not running
-			None => {
-				return self.elapsed;
-			}
-		}
+		self.start_time.map(|t| t.elapsed() + self.elapsed).unwrap_or(self.elapsed)
 	}
 
 	/// Returns the elapsed time since the start of the stopwatch in milliseconds.
 	pub fn elapsed_ms(&self) -> i64 {
 		let dur = self.elapsed();
-		return (dur.as_secs() * 1000 + (dur.subsec_nanos() / 1000000) as u64) as i64;
+		(dur.as_secs() * 1000 + dur.subsec_millis() as u64) as i64
 	}
 
 	/// Returns the elapsed time since last split or start/restart.
@@ -115,6 +106,6 @@ impl Stopwatch {
 	/// If the stopwatch is in stopped state this will always return zero.
 	pub fn elapsed_split_ms(&mut self) -> i64 {
 		let dur = self.elapsed_split();
-		return (dur.as_secs() * 1000 + (dur.subsec_nanos() / 1_000_000) as u64) as i64;
+		(dur.as_secs() * 1000 + dur.subsec_millis() as u64) as i64
 	}
 }
