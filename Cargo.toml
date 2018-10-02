@@ -10,5 +10,5 @@ readme = "README.md"
 keywords = ["stopwatch", "timing"]
 license = "MIT"
 
-[dependencies]
-num = "0.1.32"
+[dev-dependencies]
+num = "0.2.0"

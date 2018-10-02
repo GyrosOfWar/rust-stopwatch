@@ -31,15 +31,14 @@ impl fmt::Display for Stopwatch {
 impl Stopwatch {
 	/// Returns a new stopwatch.
 	pub fn new() -> Stopwatch {
-		let sw: Stopwatch = Default::default();
-		return sw;
+		Default::default()
 	}
 
 	/// Returns a new stopwatch which will immediately be started.
 	pub fn start_new() -> Stopwatch {
 		let mut sw = Stopwatch::new();
 		sw.start();
-		return sw;
+		sw
 	}
 
 	/// Starts the stopwatch.
@@ -69,7 +68,7 @@ impl Stopwatch {
 
 	/// Returns whether the stopwatch is running.
 	pub fn is_running(&self) -> bool {
-		return self.start_time.is_some();
+		self.start_time.is_some()
 	}
 
 	/// Returns the elapsed time since the start of the stopwatch.
@@ -77,7 +76,7 @@ impl Stopwatch {
 		match self.start_time {
 			// stopwatch is running
 			Some(t1) => {
-				return t1.elapsed() + self.elapsed;
+				t1.elapsed() + self.elapsed
 			}
 			// stopwatch is not running
 			None => {
